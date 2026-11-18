@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Đèn LED MQTT</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Thư viện MQTT.js -->
+  <script src="https://cdn.jsdelivr.net/npm/mqtt@5.10.1/dist/mqtt.min.js"></script>
+</head>
+<body>
+  <div class="status"><span id="dot" class="dot"></span><span id="conn">Đang kết nối...</span></div>
+
+  <!-- Bấm vào bóng đèn để bật/tắt -->
+  <button id="lamp" class="lamp" disabled aria-label="Bật tắt đèn">
+    <div class="glow"></div>
+    <svg viewBox="0 0 120 180" width="220" height="330">
+      <!-- Tia sáng -->
+      <g class="rays" stroke="#ffd34d" stroke-width="5" stroke-linecap="round">
+        <line x1="60" y1="2" x2="60" y2="-12"/>
+        <line x1="12" y1="22" x2="2" y2="12"/>
+        <line x1="108" y1="22" x2="118" y2="12"/>
+        <line x1="2" y1="70" x2="-12" y2="70"/>
+        <line x1="118" y1="70" x2="132" y2="70"/>
+      </g>
+      <!-- Thân bóng -->
+      <path class="bulb" d="M60 10 C28 10 10 34 10 62 C10 84 24 96 34 112 C38 119 38 124 38 130 L82 130 C82 124 82 119 86 112 C96 96 110 84 110 62 C110 34 92 10 60 10 Z"/>
+      <!-- Tóc bóng đèn -->
+      <path class="filament" d="M46 130 L46 98 L54 84 L60 98 L66 84 L74 98 L74 130" fill="none" stroke-width="4" stroke-linejoin="round"/>
+      <!-- Đuôi đèn -->
+      <rect x="36" y="130" width="48" height="14" rx="3" fill="#8a8f98"/>
+      <rect x="38" y="144" width="44" height="12" rx="3" fill="#6f747c"/>
+      <rect x="42" y="156" width="36" height="12" rx="3" fill="#8a8f98"/>
+      <path d="M50 168 L70 168 L66 176 L54 176 Z" fill="#4b4f56"/>
+    </svg>
+  </button>
+
+  <p id="label" class="label">TẮT</p>
+
+  <script src="script.js"></script>
+</body>
+</html>

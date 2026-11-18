@@ -1,0 +1,99 @@
+:root {
+  --bg-off: #14161c;
+  --bg-on: #3a3320;
+  --text: #e8e8e8;
+}
+
+* { box-sizing: border-box; }
+
+html, body { height: 100%; margin: 0; }
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  font-family: Arial, sans-serif;
+  color: var(--text);
+  background: var(--bg-off);
+  transition: background 0.6s ease;
+}
+
+body.on {
+  background: radial-gradient(circle at 50% 40%, #6b5a22 0%, var(--bg-on) 55%, #1a1710 100%);
+}
+
+/* Trạng thái kết nối */
+.status {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+.dot { width: 12px; height: 12px; border-radius: 50%; background: orange; }
+.dot.ok { background: #2ecc71; }
+.dot.err { background: #e74c3c; }
+
+/* Nút bóng đèn */
+.lamp {
+  position: relative;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.lamp:disabled { cursor: not-allowed; opacity: 0.5; }
+.lamp:active:not(:disabled) { transform: scale(0.96); }
+.lamp svg { position: relative; z-index: 1; overflow: visible; }
+
+/* Màu bóng khi tắt */
+.bulb { fill: #2c303a; stroke: #4a4f5c; stroke-width: 3; transition: fill 0.4s, filter 0.4s; }
+.filament { stroke: #5a5f6c; transition: stroke 0.4s; }
+.rays { opacity: 0; transition: opacity 0.4s; }
+
+/* Quầng sáng phía sau */
+.glow {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  width: 360px;
+  height: 360px;
+  transform: translateX(-50%) scale(0.5);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 211, 77, 0.65) 0%, rgba(255, 211, 77, 0) 70%);
+  opacity: 0;
+  transition: opacity 0.5s, transform 0.5s;
+  pointer-events: none;
+}
+
+/* Khi đèn bật */
+.lamp.on .bulb {
+  fill: #ffe27a;
+  stroke: #ffd34d;
+  filter: drop-shadow(0 0 18px #ffd34d);
+}
+.lamp.on .filament { stroke: #ff9f1a; }
+.lamp.on .rays { opacity: 1; animation: pulse 1.4s ease-in-out infinite; }
+.lamp.on .glow { opacity: 1; transform: translateX(-50%) scale(1); animation: breathe 2s ease-in-out infinite; }
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+@keyframes breathe {
+  0%, 100% { transform: translateX(-50%) scale(1); }
+  50% { transform: translateX(-50%) scale(1.08); }
+}
+
+.label {
+  font-size: 28px;
+  font-weight: bold;
+  letter-spacing: 4px;
+  margin: 0;
+}
+body.on .label { color: #ffd34d; }
